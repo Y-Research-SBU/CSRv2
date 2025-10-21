@@ -1,0 +1,55 @@
+{
+    "classification": [
+        "banking77",
+        "emotion",
+        "amazon_counterfactual",
+        "mtop_intent",
+        "mtop_domain",
+        "amazon_massive_intent",
+        "amazon_massive_scenario", 
+        "imdb",
+        "toxic_conversations_50k",
+        "tweet_sentiment_extraction"  
+    ],
+    "retrieval": [
+        "arguana",  
+        "cqadupstack-gaming",
+        "cqadupstack-unix",
+        "ClimateFEVER_test_top_250_only_w_correct-v2", 
+        "fiqa",
+        "nfcorpus",
+        "scidocs",
+        "scifact"
+    ],
+    "clustering": [
+        "arxiv-clustering-s2s", 
+        "biorxiv-clustering-p2p", 
+        "biorxiv-clustering-s2s",
+        "twentynewsgroups-clustering", 
+        "medrxiv-clustering-p2p",
+        "medrxiv-clustering-s2s",
+        "stackexchange-clustering", 
+        "stackexchange-clustering-p2p"        
+    ],
+    "sts": [
+        "sickr-sts",
+        "sts12-sts",
+        "sts13-sts",
+        "sts14-sts",
+        "sts15-sts",
+        "sts16-sts",
+        "stsbenchmark-sts",
+        "biosses-sts",
+        "sts17-crosslingual-sts",
+        "sts22-crosslingual-sts"   
+    ],
+    "reranking": [
+        "stackoverflowdupquestions-reranking", 
+        "askubuntudupquestions-reranking", 
+        "scidocs-reranking"        
+    ],
+    "pair_classification": [
+        "twitterurlcorpus-pairclassification",
+        "sprintduplicatequestions-pairclassification"        
+    ]
+}
