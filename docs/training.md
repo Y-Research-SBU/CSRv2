@@ -101,3 +101,43 @@ done
 ```
 
 ### Image embedding
+We use `main_visual.py` for CSRv2/CSR training.
+
+The required parameters are:
+- `--pretrained_emb`: Path to the embedding file for CSR training. (Note that the path must point to a `npz` file.)
+- `--embed_dim`: Dimension of the embedding for training.
+- `--hidden_size`: Dimension of hidden latent in CSR.
+- `--gpu`: The GPU used for training.
+- `--base_model`: Name of the backbone for generating embeddings.
+- `--model_suffix`: Suffix added to the end of checkpoints for easier search.
+- `--epochs`: Number of epochs for training.
+- `--lr`: Learning rate for training.
+- `--topk`: TopK selection in CSR training.
+- `--use_CL`: Add contrastive loss to training (i.e. training CSR instead of SAE).
+- `--cl_coef`: Cofficient of Contrastive Loss.
+- `--auxk`: Number of auxk in Auxk Loss.
+- `--auxk_coef`: Coefficient of Auxk Loss.
+
+To add anneal to CSR, we need to define two parameters:
+- `--initial_top`: TopK at the start of training.
+- `--k_decay_ratio`: A float between 0 and 1 to define when K converges to `--topk`.
+
+To add supervised contrastive loss to training, we need to add parameter:
+- `--use_label_CL`
+
+One training example is as follows:
+
+```shell
+python main_visual.py \
+    --pretrained_emb ./CSR-precompute-embeds/FF2048_RN50_Embeds/1K_train_ff2048.npz \
+    --model_name resnet50d.ra4_e3600_r224_in1k \
+    --epochs 10 \
+    --initial_topk 64 \
+    --topk 32 \
+    --auxk 1024 \
+    --auxk_coef 0.03125 \
+    --cl_coef 0.1 \
+    --gpu 0 \
+    --model_suffix demo \
+    --use_label_CL 
+```

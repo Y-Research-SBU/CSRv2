@@ -205,7 +205,6 @@ def main_worker(gpu, ngpus_per_node, args):
     
     # 设置默认 initial_topk 值（如果启用 k-annealing 但未指定）
     if args.initial_topk is None:
-        # 如果用户没有明确设置 initial_topk，则不启用 k-annealing
         pass
     else:
         # 验证 initial_topk 的合理性

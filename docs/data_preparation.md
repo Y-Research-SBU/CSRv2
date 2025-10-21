@@ -93,6 +93,43 @@ Finally, we combine all these with `python combine_large_datasets.py`
 python combine_large_datasets.py 
 ```
 
-
-
 ### Image Embedding
+We generate embeddings for Imagenet1K following the following pipeline:
+
+#### Dataset Download and Preprocess
+First, download Imagenet1k dataset and bounding box annotations from [Imagenet1k Official Website](https://www.image-net.org/).
+
+Second, convert dataset to [Pytorch Style](https://github.com/williamFalcon/pytorch-imagenet-dataset) with `annotations.py` and `to_pytorch_style.py`. 
+
+```shell 
+python ./dataset_preparation annotations.py --xml_dir "/PATH/TO/TRAIN/ANNOTATION/DIRECTORY" --output_file "/PATH/TO/ANNOTATIONS.TXT"
+python ./dataset_preparation to_pytorch_style.py --split_path "/PATH/TO/PYTORCH/STYLE/DATASET"
+```
+
+The final dataset should be in the following format:
+```
+train/
+  n01443537/
+    images/
+      n02058221_0.JPEG
+  ...
+```
+
+#### Conversion to FFCV Format
+Follow the pipeline of [FFCV](https://github.com/libffcv/ffcv) to convert Imagenet1K to FFCV format.
+```shell
+export IMAGENET_DIR=/path/to/pytorch/format/imagenet/directory/
+export WRITE_DIR=/your/path/here/
+./write_imagenet.sh "train" 500 0.50 90
+./write_imagenet.sh "val" 500 0.50 90
+```
+
+#### Embedding Generation with the Selected Backbone
+We use `pretrained_embeddings.py` and `stack_emb.py` to generate embeddings with the selected backbone.
+```shell
+python pretrained_embeddings.py \
+	--train_data_ffcv  /PATH/TO/train.ffcv \
+	--eval_data_ffcv    /PATH/TO/val.ffcv \
+	--model_name "pre-trained visual backbone" \
+python stack_emb.py
+```
