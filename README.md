@@ -1,34 +1,43 @@
 <div align="center">
 
-<h2>CSRv2: Unlocking Ultra-Sparse Embeddings</h2>
-</div>
+<h1 style="font-family: Georgia; font-weight: 600; letter-spacing: 0.5px;">
+✨ CSRv2: Unlocking Ultra-Sparse Embeddings ✨
+</h1>
 
 <br>
-<div align="center"style="font-family: charter; font-size: x-small;">
-	Lixuan Guo*</a><sup>1,2</sup>,</span>
-	<a href="https://yifeiwang77.com/" target="_blank">Yifei Wang*</a><sup>3</sup>,</span>
-	<a href="https://neilwen987.github.io/" target="_blank">Tiansheng Wen*</a><sup>1,2</sup>,</span> 
-	<a href="https://yfwang.me/" target="_blank">Yifan Wang</a><sup>1</sup>,</span>
-    Aosong Feng<sup>4</sup>,</span>
-	<a href="https://web.xidian.edu.cn/bchen/en/index.html" target="_blank">Bo Chen</a><sup>2</sup>,</span>
-	<a href="https://people.csail.mit.edu/stefje/" target="_blank">Stefanie Jegelka</a><sup>5,3</sup>,</span>
-	<a href="https://chenyuyou.me/" target="_blank">Chenyu You</a><sup>1</sup> &ensp;
-</div>
+
+<p style="font-family: Charter, serif; font-size: 15px; line-height: 1.6; color: #444;">
+<b>
+Lixuan Guo*</b><sup>1,2</sup>,
+<a href="https://yifeiwang77.com/" target="_blank"><b>Yifei Wang*</b></a><sup>3</sup>,
+<a href="https://neilwen987.github.io/" target="_blank"><b>Tiansheng Wen*</b></a><sup>1,2</sup>,
+<a href="https://yfwang.me/" target="_blank"><b>Yifan Wang</b></a><sup>1</sup>,
+<a href="https://scholar.google.com/citations?user=hFhhrmgAAAAJ&hl=en"><b>Aosong Feng</b></a><sup>4</sup>,
+<a href="https://web.xidian.edu.cn/bchen/en/index.html" target="_blank"><b>Bo Chen</b></a><sup>2</sup>,
+<a href="https://people.csail.mit.edu/stefje/" target="_blank"><b>Stefanie Jegelka</b></a><sup>3</sup>,
+<a href="https://chenyuyou.me/" target="_blank"><b>Chenyu You</b></a><sup>1</sup>
+</p>
+
+<p style="font-size: 14px; color: #555; margin-top: 8px;">
+<sup>1</sup>Stony Brook University &emsp; 
+<sup>2</sup>Xidian University &emsp;
+<sup>3</sup>MIT &emsp;
+<sup>4</sup>Yale University
+</p>
+
 <br>
-<div align="center">
-    <sup>1</sup>Stony Brook University&emsp;
-    <sup>2</sup>Xidian University&emsp;    
-    <sup>3</sup>MIT&emsp;
-    <sup>4</sup>Yale University&emsp;
-    <sup>5</sup>TUM
-    <br>
-</div>
 
-<div align='center'>
-    <img src="./assets/overview.jpg" width="600">
-</div>
+<img src="./assets/overview.jpg" width="600" style="border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.15);">
 
-This repo is the official repo for CSRv2. Please refer to [Lixuan Guo's repository](https://github.com/Veritas2024/CSRv2) for more details.
+<br><br>
+
+<p style="font-size: 15px; color: #444;">
+This is the <b>official repository</b> for <b>CSRv2</b>.  
+For implementation details and updates, please visit  
+<a href="https://github.com/Veritas2024/CSRv2" target="_blank">Lixuan Guo’s GitHub Repository</a>.
+</p>
+
+</div>
 
 ## &#x1F680; &#x1F680; News
 - 2025.10 Code released! Let's explore ultra sparsity together!
