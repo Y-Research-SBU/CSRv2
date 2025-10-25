@@ -12,7 +12,7 @@ Lixuan Guo*</b><sup>1,2</sup>,
 <a href="https://yifeiwang77.com/" target="_blank"><b>Yifei Wang*</b></a><sup>3</sup>,
 <a href="https://neilwen987.github.io/" target="_blank"><b>Tiansheng Wen*</b></a><sup>1,2</sup>,
 <a href="https://yfwang.me/" target="_blank"><b>Yifan Wang</b></a><sup>1</sup>,
-<a href="https://scholar.google.com/citations?user=hFhhrmgAAAAJ&hl=en"><b>Aosong Feng</b></a><sup>4</sup>,
+<a href="https://scholar.google.com/citations?user=hFhhrmgAAAAJ&hl=en"><b>Aosong Feng</b></a><sup>4</sup>,</br>
 <a href="https://web.xidian.edu.cn/bchen/en/index.html" target="_blank"><b>Bo Chen</b></a><sup>2</sup>,
 <a href="https://people.csail.mit.edu/stefje/" target="_blank"><b>Stefanie Jegelka</b></a><sup>3</sup>,
 <a href="https://chenyuyou.me/" target="_blank"><b>Chenyu You</b></a><sup>1</sup>
