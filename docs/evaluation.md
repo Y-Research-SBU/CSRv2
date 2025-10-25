@@ -53,3 +53,42 @@ python all_step_pipeline_personalized_evaluation.py \
     --model_suffix retrieval \
     --training_embedding_path ./embeddings_for_training/intfloat_without_finetuning/retrieval/train.npz
 ```
+
+#### Evaluation for Splade Models
+We use `splade_evaluation.py` to evaluate SPLADE series models on retrieval tasks. The required parameters are:
+- `--model_name`: Name of SPLADE model for evaluation, which needs to be loaded with sentence transformers.
+- `--dataset_name`: Name of dataset for evaluation.
+- `--batch_size`: Batch size for embedding generation.
+- `--topk_query`: Selected TopK query embedding in evaluation.
+- `--topk_corpus`: Selected TopK corpus embedding in evaluation.
+
+One example is as follows:
+```shell
+python splade_evaluation.py \
+    --model_name splade-v3 \
+    --dataset_name arguana \
+    --batch_size 32 \
+    --save_root_path ./splade_evaluation/ \
+    --topk_query 40 \
+    --topk_corpus 400 \
+    --gpu 0 
+```
+
+### Image Embedding
+First, we conduct inference with `csr_inference.py`. The required parameters are:
+- `--train_emb_path`: Path to the training embeddings.
+- `--eval_emb_path`: Path to the evaluation embeddings.
+- `--model_name`: Name of backbone model.
+- `--topk`, `--hidden-size`, `--auxk`, `--auxk_coef`: Settings of CSR/CSRv2 for inference.
+- `--csr_ckpt`: Path to checkpoint.
+
+One example is as follows:
+```shell
+python csr_inference.py \
+      --train_emb_path  /PATH/TO/TRAIN_EMB \
+      --eval_emb_path    /PATH/TO/EVAL_EMB \
+      --model_name "PRETRAINED_MODEL_NAME" \
+      --topk 8 \
+      --hidden-size 8192  
+      --csr_ckpt "PATH/TO/CKPT"\
+```
