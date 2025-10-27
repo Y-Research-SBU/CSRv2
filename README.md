@@ -28,8 +28,7 @@ Lixuan Guo*</b><sup>1,2</sup>,
 <img src="./assets/overview.jpg" width="600" style="border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.15);">
 
 <p style="font-size: 15px; color: #444;">
-This is the <b>official repository</b> for <b>CSRv2</b>.  
-For implementation details and updates, please visit  
+This is the <b>official repository</b> for <b>CSRv2</b>. For implementation details and updates, please also visit  
 <a href="https://github.com/Veritas2024/CSRv2" target="_blank">Lixuan Guo’s GitHub Repository</a>.
 </p>
 
