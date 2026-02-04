@@ -125,6 +125,9 @@ To add anneal to CSR, we need to define two parameters:
 To add supervised contrastive loss to training, we need to add parameter:
 - `--use_label_CL`
 
+For backbone finetuning, we need to add parameter:
+- `--all_param_finetuning`
+
 One training example is as follows:
 
 ```shell

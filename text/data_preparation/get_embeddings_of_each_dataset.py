@@ -100,15 +100,15 @@ def process_texts_with_ids_in_batches(model, texts, ids, prompt, batch_size):
     return final_embeddings, id_buffer
 
 def get_classification_embeddings(model, prompt, dataset_name, batch_size, save_root_path):
-    """
-    数据集结构：
-    包含train/val/test等split,每个split至少包含text和label两列
-    处理结果:
-    save_root_path/dataset_name下包含若干文件:
-    train/val/test.npz: 包含data和label两个键
-    1. data: [num_of_samples, embedding_dimension]
-    2. label: [num_of_samples, 1]
-    """
+        """
+        Dataset structure:
+        Includes train/val/test splits; each split provides at least "text" and "label" columns.
+        Output layout:
+        save_root_path/dataset_name contains files such as:
+        train/val/test.npz with keys "data" and "label":
+            1. data: [num_of_samples, embedding_dimension]
+            2. label: [num_of_samples, 1]
+        """
     assert dataset_name in [
         "amazon_massive_intent",
         "amazon_massive_scenario",
@@ -172,17 +172,17 @@ def get_retrieval_embeddings(model, prompt, dataset_name, batch_size, save_root_
         "scidocs",
         "scifact",
     ]
-    """
-    数据集结构：
-    包含train/val/test等split,每个split至少包含corpus-id和queries-id两列
-    包含corpus子数据集,至少包含_id、title和text三列
-    包含queries子数据集,至少包含_id和text两列
-    处理结果：
-    save_root_path/dataset_name下包含三个文件:
-    1. corpus.npz: 包含id和data两个键
-    2. queries.npz: 包含id和data两个键
-    3. train/val/test.npz: 包含训练/验证/测试集中的键值对, 包含query_id和corpus_id两个键
-    """
+        """
+        Dataset structure:
+        train/val/test splits each provide at least "corpus-id" and "queries-id" columns.
+        The corpus subset contains at least "_id", "title", and "text" columns.
+        The queries subset contains at least "_id" and "text" columns.
+        Output layout:
+        save_root_path/dataset_name contains three files:
+            1. corpus.npz with keys "id" and "data"
+            2. queries.npz with keys "id" and "data"
+            3. train/val/test.npz storing query_id and corpus_id pairs
+        """
     dataset = load_dataset(f"mteb/{dataset_name}")
     output_dir = setup_output_directory(save_root_path, dataset_name)
     
@@ -235,16 +235,15 @@ def get_clustering_embeddings(model, prompt, dataset_name, batch_size, save_root
         "stackexchange-clustering",  
         "stackexchange-clustering-p2p",
     ]
-    """
-    数据集结构：
-    包含train/val/test等split,每个split至少包含sentences和labels两列
-    sentences列包含句子(句子列表), labels列包含对应的字符串标签(标签列表)
-    处理结果:
-    save_root_path/dataset_name下包含若干文件:
-    train/val/test.npz: 包含data和label两个键
-    1. data: [num_of_samples, embedding_dimension]
-    2. label: [num_of_samples, 1]
-    """
+        """
+        Dataset structure:
+        train/val/test splits each include "sentences" and "labels" columns.
+        The sentences column holds sentence lists; labels holds the aligned label list.
+        Output layout:
+        save_root_path/dataset_name stores files such as train/val/test.npz with keys "data" and "label":
+            1. data: [num_of_samples, embedding_dimension]
+            2. label: [num_of_samples, 1]
+        """
     dataset = load_dataset(f"mteb/{dataset_name}")
     output_dir = setup_output_directory(save_root_path, dataset_name)
     
@@ -294,11 +293,10 @@ def get_sts_embeddings(model, prompt, dataset_name, batch_size, save_root_path):
                             "sts17-crosslingual-sts",
                             "sts22-crosslingual-sts"]
     """
-    数据集结构：
-    包含train/val/test等split,每个split至少包含sentence1, sentence2和score三列
-    处理结果:
-    save_root_path/dataset_name下包含若干文件:
-    train/val/test.npz: 包含data1, data2和score三个键
+    Dataset structure:
+    train/val/test splits each provide "sentence1", "sentence2", and "score" columns.
+    Output layout:
+    save_root_path/dataset_name stores files such as train/val/test.npz with keys "sentence1", "sentence2", and "score".
     """
     try:
         dataset = load_dataset("mteb/" + dataset_name, "en")
@@ -328,18 +326,16 @@ def get_reranking_embeddings(model, prompt, dataset_name, batch_size, save_root_
     assert dataset_name in ["stackoverflowdupquestions-reranking", 
                             "askubuntudupquestions-reranking", 
                             "scidocs-reranking"]
-    """
-    数据集结构：
-    包含train/test等split, 每个split至少包含query, positive和negative三列
-    query列为一个字符串, positive列为一个包含多个正样本的列表, negative列为一个包含多个负样本的列表 
-    处理结果：
-    save_root_path/dataset_name下包含若干文件:
-    train/val/test.npz: 包含一条query的embedding和其对应的positive/negative corpus的text list
-    结构如下:
-    键: query, 值: [num_of_query, embedding_dimension]
-    键: positive, 值: [num_of_query, [num_of_positive_corpus, embedding_dimension]]
-    键: negative, 值: [num_of_query, [num_of_negative_corpus, embedding_dimension]]
-    """
+        """
+        Dataset structure:
+        train/test splits each provide at least "query", "positive", and "negative" columns.
+        query is a string; positive and negative hold lists of text passages.
+        Output layout:
+        save_root_path/dataset_name stores train/val/test.npz files containing each query embedding and its positive/negative corpora:
+            key "query": [num_queries, embedding_dimension]
+            key "positive": [num_queries, [num_positive_corpus, embedding_dimension]]
+            key "negative": [num_queries, [num_negative_corpus, embedding_dimension]]
+        """
     dataset = load_dataset(f"mteb/{dataset_name}")
     for split in dataset.keys():
         if os.path.exists(os.path.join(save_root_path, dataset_name, f"{split}.npz")):
@@ -427,16 +423,15 @@ def get_reranking_embeddings(model, prompt, dataset_name, batch_size, save_root_
 def get_pair_classification_embeddings(model, prompt, dataset_name, batch_size, save_root_path):
     assert dataset_name in ["twitterurlcorpus-pairclassification",
                             "sprintduplicatequestions-pairclassification"]
-    """
-    数据集结构：
-    包含train/val/test等split,每个split至少包含sent1, sent2和label三列
-    处理结果：
-    save_root_path/dataset_name下包含若干文件:
-    train/val/test.npz: 包含三个键:
-    1. sentence1: [num_of_pairs, embedding_dimension]
-    2. sentence2: [num_of_pairs, embedding_dimension]
-    3. label: [num_of_pairs, 1]
-    """
+        """
+        Dataset structure:
+        train/val/test splits each include "sent1", "sent2", and "label" columns.
+        Output layout:
+        save_root_path/dataset_name contains train/val/test.npz with keys:
+            1. sentence1: [num_pairs, embedding_dimension]
+            2. sentence2: [num_pairs, embedding_dimension]
+            3. label: [num_pairs, 1]
+        """
     dataset = load_dataset(f"mteb/{dataset_name}")
     output_dir = setup_output_directory(save_root_path, dataset_name)
     

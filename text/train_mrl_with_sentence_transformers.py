@@ -118,10 +118,10 @@ def is_distributed():
 
 def main():
     # args is already parsed globally and GPU environment is set
-    
-    # 根据是否是分布式训练来配置模型
+
+    # Configure model depending on distributed setup
     if is_distributed():
-        # 分布式训练：不使用量化，让 DDP 处理设备分配
+        # Distributed training: disable quantization and let DDP handle device placement
         model = SentenceTransformer(
             f"{args.model_name}",
             trust_remote_code=True,
@@ -131,7 +131,7 @@ def main():
             },
         )
     else:
-        # 单卡训练：使用量化和自动设备映射
+        # Single-GPU training: enable quantization with automatic device mapping
         bnb_cfg = BitsAndBytesConfig(
             load_in_4bit=True,
             bnb_4bit_compute_dtype=torch.bfloat16,
@@ -149,19 +149,19 @@ def main():
             },
         )
     
-    # 设置 tokenizer 的 padding_side 为 'left' 以兼容 Flash Attention
+    # Ensure tokenizer pads on the left for Flash Attention compatibility
     if hasattr(model, 'tokenizer') and model.tokenizer is not None:
         model.tokenizer.padding_side = 'left'
     elif hasattr(model, '_modules') and '0' in model._modules:
-        # 对于 SentenceTransformer，tokenizer 通常在第一个模块中
+        # SentenceTransformer typically keeps the tokenizer in the first module
         if hasattr(model._modules['0'], 'tokenizer'):
             model._modules['0'].tokenizer.padding_side = 'left'
     
-    # 设置最大序列长度以减少内存使用
+    # Limit maximum sequence length to reduce memory usage
     model.max_seq_length = args.max_seq_length
     # model.gradient_checkpointing_enable()
     
-    # LoRA 配置
+    # LoRA configuration
     peft_config = LoraConfig(
         task_type=TaskType.FEATURE_EXTRACTION,
         inference_mode=False,
@@ -172,7 +172,7 @@ def main():
     )
     model.add_adapter(peft_config)
     
-    # 处理数据集 - 支持单个或多个数据集
+    # Load one or multiple datasets
     if args.load_from_disk:
         dataset = load_from_disk(args.dataset)
     else:
@@ -197,10 +197,10 @@ def main():
     
     output_dir = f"output/{args.model_name}-{args.dataset_suffix}-alpha_{args.lora_alpha}-batch_size_{args.batch_size}-lr_{args.lr}"
     
-    # 根据是否分布式训练调整参数
+    # Adjust arguments for distributed runs
     if is_distributed():
-        gradient_accumulation_steps = 1  # 减少梯度累积步数，因为有多个GPU
-        report_to = "wandb" if is_main_process() else "none"  # 只在主进程报告到wandb
+        gradient_accumulation_steps = 1  # Lower accumulation because multiple GPUs share the work
+        report_to = "wandb" if is_main_process() else "none"  # Report to wandb only on the main process
     else:
         gradient_accumulation_steps = args.gradient_accumulation_steps
         report_to = "wandb"
@@ -214,13 +214,13 @@ def main():
         gradient_accumulation_steps=args.gradient_accumulation_steps,
         bf16=True,
         gradient_checkpointing=True,
-        logging_steps=10,  # 增加logging频率以便观察
+        logging_steps=10,  # Log more frequently for better visibility
         save_steps=100,
-        warmup_ratio=0.1,  # 增加warmup比例
+        warmup_ratio=0.1,  # Higher warmup ratio
         dataloader_pin_memory=False,
         save_strategy="steps",
         report_to=report_to,
-        # 分布式训练相关参数
+        # Distributed training specifics
         ddp_find_unused_parameters=False,
         save_only_model=True,
         greater_is_better=False,
@@ -247,7 +247,7 @@ def main():
     
     trainer.train()
     
-    # 只在主进程保存模型
+    # Save only on the main process
     if is_main_process():
         save_path = f"./results/{args.model_name}-{args.dataset_suffix}-alpha_{args.lora_alpha}-batch_size_{args.batch_size}-lr_{args.lr}"
         model.save_pretrained(save_path)

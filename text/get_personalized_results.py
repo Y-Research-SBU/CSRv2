@@ -11,8 +11,6 @@ def parse_args():
     parser.add_argument("--gpu", type=str, required=True)
     return parser.parse_args()
 
-# 模块级别的导入
-
 import numpy as np
 import torch
 import torch.nn.functional as F
@@ -26,30 +24,13 @@ from torch.utils.data import TensorDataset, DataLoader
 
 
 def dcg_at_k(relevance_scores, k):
-    """
-    计算DCG@k
-    Args:
-        relevance_scores: 相关性分数列表，按排序顺序
-        k: 截断位置
-    Returns:
-        DCG@k值
-    """
     relevance_scores = np.array(relevance_scores)[:k]
     gains = 2**relevance_scores - 1
     discounts = np.log2(np.arange(len(relevance_scores)) + 2)
     return np.sum(gains / discounts)
 
 def ndcg_at_k(relevance_scores, k):
-    """
-    计算NDCG@k
-    Args:
-        relevance_scores: 相关性分数列表，按排序顺序
-        k: 截断位置
-    Returns:
-        NDCG@k值
-    """
     dcg = dcg_at_k(relevance_scores, k)
-    # 计算理想DCG（IDCG）
     ideal_relevance_scores = sorted(relevance_scores, reverse=True)
     idcg = dcg_at_k(ideal_relevance_scores, k)
     
@@ -137,9 +118,6 @@ def calculate_ndcg_from_embeddings(model, embeddings_path, dataset_name, split="
     return mean_ndcg_dict
 
 def generate_embeddings_for_task(model, embedding_data_path, gpu=0, batch_size=128):
-    """
-    将backbone的embeddings输入到一个CSR model中, 以进行evaluation, 略过再生成一遍embeddings所需要浪费的大量时间
-    """
     device = torch.device(f'cuda:{gpu}' if torch.cuda.is_available() else 'cpu')
     model = model.to(device)
     model.eval()           
@@ -166,20 +144,6 @@ def generate_embeddings_for_task(model, embedding_data_path, gpu=0, batch_size=1
     return combined_latents, combined_labels
 
 def calculate_accuracy_from_embeddings(model, embeddings_path, dataset_name, num_runs=1, random_state_base=42):
-    """
-    从保存的embeddings计算分类准确率
-    
-    使用train.npz中的数据训练逻辑回归分类器，在test.npz中的数据上测试
-    
-    Args:
-        embeddings_path: embeddings保存的根路径
-        dataset_name: 数据集名称
-        num_runs: 运行次数（默认10次）
-        random_state_base: 随机种子基数
-    
-    Returns:
-        tuple: (每次运行的accuracy列表, 平均accuracy)
-    """
     assert "train.npz" in os.listdir(os.path.join(embeddings_path, dataset_name)), \
         f"train.npz not found in {os.path.join(embeddings_path, dataset_name)}"
     assert "test.npz" in os.listdir(os.path.join(embeddings_path, dataset_name)), \
@@ -217,20 +181,6 @@ def calculate_accuracy_from_embeddings(model, embeddings_path, dataset_name, num
     return {"accuracy_per_time": accuracy_scores, "mean_accuracy": mean_accuracy}
 
 def calculate_clustering_from_embeddings(model, embeddings_path, dataset_name, split="test", num_runs=5, random_state_base=42, batch_size=32):
-    """
-    从保存的embeddings计算聚类的V-measure指标，使用Mini-batch K-means
-    
-    Args:
-        embeddings_path: embeddings保存的根路径
-        dataset_name: 数据集名称
-        split: 数据分割名称（如"test", "train"等）
-        num_runs: 运行次数（默认10次）
-        random_state_base: 随机种子基数
-        batch_size: Mini-batch K-means的batch size（默认32）
-    
-    Returns:
-        tuple: (每次运行的v_measure列表, 平均v_measure)
-    """
     dataset_path = os.path.join(embeddings_path, dataset_name)
     
     print(f"Loading embeddings and labels for {dataset_name} ({split})...")
@@ -243,27 +193,22 @@ def calculate_clustering_from_embeddings(model, embeddings_path, dataset_name, s
     v_measure_scores = []
     
     for run in tqdm(range(num_runs), desc="Clustering runs"):
-        # 使用不同的随机种子来确保每次运行的随机性
         random_state = random_state_base + run
         
-        # 创建并训练Mini-batch K-means聚类器
         kmeans = MiniBatchKMeans(
             n_clusters=n_clusters,
             batch_size=batch_size, 
-            n_init="auto",  # 使用多次初始化以获得更稳定的结果
+            n_init="auto",  
         )
         
-        # 对embeddings进行聚类
         cluster_predictions = kmeans.fit_predict(embeddings)
         
-        # 计算V-measure指标
         v_measure = v_measure_score(labels, cluster_predictions)
         v_measure_scores.append(v_measure)
         
-        if run < 3:  # 只打印前3次的详细信息
+        if run < 3:  
             print(f"  Run {run+1}: V-measure = {v_measure:.4f}")
     
-    # 计算平均V-measure和标准差
     mean_v_measure = np.mean(v_measure_scores)
     std_v_measure = np.std(v_measure_scores)
     
@@ -384,7 +329,7 @@ def calculate_reranking_from_embeddings(model, embeddings_path, dataset_name, ba
             all_latents.append(latents.cpu().numpy())
         all_latents = np.concatenate(all_latents, axis=0)
     queries_tensor = torch.from_numpy(all_latents).float().to(device)
-    queries_tensor = F.normalize(queries_tensor, p=2, dim=1)  # L2归一化
+    queries_tensor = F.normalize(queries_tensor, p=2, dim=1)  # Normalize to unit L2 norm
     ap_scores = []
     skipped_queries = 0
     num_queries = len(queries)
@@ -399,30 +344,24 @@ def calculate_reranking_from_embeddings(model, embeddings_path, dataset_name, ba
             positive_corpus = positive_list[query_idx]  # [num_positive, embedding_dim]
             negative_corpus = negative_list[query_idx]  # [num_negative, embedding_dim]
             
-            # 处理None值的情况
             if positive_corpus is None:
-                positive_corpus = np.array([])  # 创建空数组
+                positive_corpus = np.array([])  
             if negative_corpus is None:
-                negative_corpus = np.array([])  # 创建空数组
+                negative_corpus = np.array([])  
             
-            # 跳过没有任何corpus的query
             if len(positive_corpus) == 0 and len(negative_corpus) == 0:
                 print(f"Warning: Query {query_idx} has no positive or negative corpus, skipping...")
                 skipped_queries += 1
                 continue
                 
-            # 处理没有negative corpus的情况
             if len(negative_corpus) == 0:
-                # 如果没有negative corpus，只使用positive corpus
                 all_corpus = positive_corpus
                 relevance_labels = np.ones(len(positive_corpus))
             elif len(positive_corpus) == 0:
-                # 如果没有positive corpus，只使用negative corpus
                 all_corpus = negative_corpus
                 relevance_labels = np.zeros(len(negative_corpus))
             else:
-                # 正常情况：同时有positive和negative corpus
-                all_corpus = np.vstack([positive_corpus, negative_corpus])  # [num_positive + num_negative, embedding_dim]
+                all_corpus = np.vstack([positive_corpus, negative_corpus])  
                 relevance_labels = np.concatenate([
                     np.ones(len(positive_corpus)),
                     np.zeros(len(negative_corpus))

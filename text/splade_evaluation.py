@@ -257,7 +257,7 @@ def main():
         topk_corpus=args.topk_corpus
     )
     
-    # Step 2: 计算NDCG
+    # Step 2: compute the NDCG scores
     print(f"\n{'='*50}")
     print(f"Step 2: Calculating NDCG for {args.dataset_name}")
     print(f"{'='*50}\n")

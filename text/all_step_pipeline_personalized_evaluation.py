@@ -61,7 +61,6 @@ TaskType2Function = {
 args = None
 
 def log(msg):
-    """简化的log函数，直接打印到终端"""
     timestamp = datetime.now().strftime('%H:%M:%S')
     log_msg = f"[{timestamp}] {msg}"
     print(log_msg)
@@ -279,12 +278,6 @@ def evaluate_model_performance(model, task_name):
         }
 
 def get_all_trained_models():
-    """
-    获取所有训练好的模型信息
-    
-    Returns:
-        包含所有训练好的模型信息的字典
-    """
     return get_checkpoint_info()
     
 

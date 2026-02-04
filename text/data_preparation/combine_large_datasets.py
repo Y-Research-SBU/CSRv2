@@ -1,4 +1,4 @@
-"""把mteb和sentence transformer的数据集进行混合"""
+"""Combine datasets from MTEB and Sentence Transformers."""
 from datasets import load_dataset, load_from_disk
 from datasets import concatenate_datasets
 

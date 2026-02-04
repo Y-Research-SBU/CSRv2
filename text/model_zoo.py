@@ -152,7 +152,7 @@ class CSR(nn.Module):
 class CustomDataset(Dataset):
     def __init__(self,train_data):
         self.train_data = train_data['data']
-        self.labels = train_data.get('labels', None)  # 尝试获取标签，如果不存在则为None
+        self.labels = train_data.get('labels', None)
         self.N = self.train_data.shape[0]
 
     def __getitem__(self, index):
@@ -160,7 +160,7 @@ class CustomDataset(Dataset):
         if self.labels is not None:
             labels = self.labels[index]
         else:
-            labels = 0  # 如果没有标签，返回默认值
+            labels = 0  
         return (np.squeeze(data), labels)
 
     def __len__(self):
@@ -178,7 +178,7 @@ class CustomDataset_for_STS_Score(Dataset):
         if self.labels is not None:
             labels = self.labels[index]
         else:
-            labels = 0  # 如果没有标签，返回默认值
+            labels = 0  
         if self.scores is not None:
             scores = self.scores[index]
         else:

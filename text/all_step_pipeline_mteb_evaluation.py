@@ -9,7 +9,6 @@ from datetime import datetime
 from model_zoo import CSR, CustomDataset
 from torch.utils.data import DataLoader
 
-# 加载MTEB任务配置
 with open("./MTEB_task_prompts.json") as f:
     model_prompts = json.load(f)
 
@@ -19,7 +18,6 @@ def parse_args():
     parser.add_argument("--eval_tasks", nargs="+", required=True,
                        help="List of tasks to evaluate")
     
-    # 模型相关参数
     parser.add_argument("--base_model", default="Qwen3-Embedding-4B", help="Base model name")
     parser.add_argument("--gpu", type=int, required=True, help="GPU device to use")
     parser.add_argument("--batch_size", type=int, default=128, help="Batch size for training")
@@ -34,29 +32,24 @@ def parse_args():
     parser.add_argument("--epochs", type=int, default=10, help="Number of training epochs")
     parser.add_argument("--dead_threshold", default=30, type=int, dest='dead_threshold', help='dead_threshold')
 
-    # 路径相关参数
     parser.add_argument("--training_embedding_path", type=str, required=True, help="Path to embedding file for training")
     parser.add_argument("--training_script", default="./CSR_training.py", help="Path to training script")
     parser.add_argument("--packaged_model_dir", type=str, required=True,
                        help="Specific directory path where the packaged model should be saved")
     
-    # 标签对比学习相关参数
     parser.add_argument("--use_label_CL", action="store_true", help="Use label-based contrastive learning")
     parser.add_argument("--cl_coef", type=float, default=0.1, help="Contrastive learning coefficient")
 
-    # 模型命名相关参数  
     parser.add_argument("--model_suffix", type=str, required=True, help="Unique suffix for model naming (e.g., test, v1, experimental)")
 
     return parser.parse_args()
 
-# 任务映射字典 - 将训练任务名映射到MTEB任务名
 with open("./dataset_to_task.json") as f:
     TASK_TO_MTEB = json.load(f)
 
 args = None
 
 def log(msg):
-    """简化的log函数，直接打印到终端"""
     timestamp = datetime.now().strftime('%H:%M:%S')
     log_msg = f"[{timestamp}] {msg}"
     print(log_msg)
@@ -289,12 +282,6 @@ def load_trained_model():
         return None
 
 def get_all_trained_models():
-    """
-    获取所有训练好的模型信息
-    
-    Returns:
-        包含所有训练好的模型信息的字典
-    """
     return get_checkpoint_info()
     
 
@@ -303,7 +290,6 @@ def main():
     args = parse_args()
     os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu)
     
-    # 计算评估结果根目录
     eval_results_root = "".join((
         f"./CSR_results_MTEB_evaluation/base_model_{args.base_model}-epochs_{args.epochs}-batch_size_{args.batch_size}-lr_{args.lr}-topk_{args.topk}-auxk_{args.auxk}-",
         f"auxk_coef_{args.auxk_coef}-cl_coef_{args.cl_coef}-embed_dim_{args.embed_dim}-hidden_size_{args.hidden_size}"

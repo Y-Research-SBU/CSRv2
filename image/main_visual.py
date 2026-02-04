@@ -199,15 +199,15 @@ def main_worker(gpu, ngpus_per_node, args):
     # sota_backbone.load_state_dict(state_dict)
 
     sota_backbone.eval()
-    # 添加一个sae层，hidden_size = in_feature * 4
+    # Add an SAE layer with hidden_size = in_features * 4
     if args.hidden_size is None:
         args.hidden_size = sota_backbone.fc.in_features * 4
     
-    # 设置默认 initial_topk 值（如果启用 k-annealing 但未指定）
+    # Set a default initial_topk when k-annealing is enabled but not specified
     if args.initial_topk is None:
         pass
     else:
-        # 验证 initial_topk 的合理性
+        # Validate the chosen initial_topk
         max_safe_initial_topk = args.hidden_size // 4
         if args.initial_topk * 4 > args.hidden_size:
             print(f"Warning: initial_topk * 4 ({args.initial_topk * 4}) > hidden_size ({args.hidden_size})")
@@ -283,15 +283,15 @@ def main_worker(gpu, ngpus_per_node, args):
         train_loader = DataLoader(train_dataset,batch_size=args.batch_size, shuffle=True,
             num_workers=args.workers, pin_memory=True)
 
-    # K-annealing 初始化
+    # K-annealing initialization
     if args.initial_topk is not None:
-        # 计算总的训练步数
+        # Compute total training steps
         total_steps = len(train_loader) * args.epochs
-        # 设置初始 topk
+        # Initialize topk
         current_topk = args.initial_topk
         global_step = 0
         print(f"K-annealing enabled: initial_topk={args.initial_topk}, final_topk={args.topk}, total_steps={total_steps}, k_decay_ratio={args.k_decay_ratio}")
-        # 更新模型的 topk 值
+        # Update the model's topk value
         if hasattr(model, 'module'):
             model.module.topk = current_topk
         else:
@@ -435,17 +435,17 @@ def train(train_loader, model, criterion, optimizer, epoch, device, args, global
     model.train()
     end = time.time()
     for i, (images, target) in enumerate(train_loader):
-        # K-annealing: 更新 topk 值
+        # K-annealing: update the topk value
         if args.initial_topk is not None and total_steps is not None:
             new_topk = get_current_k(global_step, args.initial_topk, args.topk, total_steps, args.k_decay_ratio)
             if new_topk != current_topk:
                 current_topk = new_topk
-                # 更新模型的 topk 值
+                # Update the model's topk value
                 if hasattr(model, 'module'):
                     model.module.topk = current_topk
                 else:
                     model.topk = current_topk
-                if global_step % 100 == 0:  # 每100步打印一次
+                if global_step % 100 == 0:  # Log every 100 steps
                     print(f"Step {global_step}: Updated topk to {current_topk}")
         
         global_step += 1
@@ -457,7 +457,7 @@ def train(train_loader, model, criterion, optimizer, epoch, device, args, global
         images = images.to(device, non_blocking=True)
         target = target.to(device, non_blocking=True)
 
-        # 使用当前的 topk 值
+        # Use the current topk value
         effective_topk = current_topk if current_topk is not None else args.topk
         x_1, latents_pre_act_1, latents_k_1, recons_1, recons_aux_1 = model(images)
         x_3, latents_pre_act_3, latents_k_3, recons_3, recons_aux_3 = model(images, topk=4 * effective_topk)

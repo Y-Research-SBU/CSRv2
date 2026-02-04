@@ -5,7 +5,7 @@ import argparse
 def parse_args():
     parser = argparse.ArgumentParser(description="Summarize CSR evaluation results")
     
-    # 模型相关参数
+    # Model-related arguments
     parser.add_argument("--base_model", default="Qwen3-Embedding-4B", help="Base model name")
     parser.add_argument("--batch_size", type=int, default=128, help="Batch size for training")
     parser.add_argument("--embed_dim", required=True, type=int, help="Embedding dimension")
@@ -18,21 +18,21 @@ def parse_args():
     parser.add_argument("--lr", type=float, required=True, help="Learning rate")
     parser.add_argument("--epochs", type=int, default=10, help="Number of training epochs")
     
-    # 标签对比学习相关参数
+    # Label contrastive learning arguments
     parser.add_argument("--use_label_CL", action="store_true", help="Use label-based contrastive learning")
     parser.add_argument("--cl_coef", type=float, default=0.1, help="Contrastive learning coefficient")
     
-    # 模型命名相关参数  
+    # Naming arguments for the model
     parser.add_argument("--model_suffix", type=str, required=True, help="Unique suffix for model naming")
     
-    # 任务相关参数
+    # Task-related arguments
     parser.add_argument("--task_type", type=str, required=True, help="Task type to evaluate")
     
-    # 路径相关参数
+    # Path arguments
     parser.add_argument("--result_root", type=str, default="./CSR_results", 
                        help="Root directory for results (default: ./CSR_results)")
     
-    # 输出控制参数
+    # Output control
     parser.add_argument("--verbose", action="store_true", 
                        help="Show detailed configuration information (default: show only average score and results file)")
 
@@ -137,7 +137,7 @@ task2function = {
 }
 
 def build_result_path():
-    """构建与训练代码一致的结果路径"""
+    """Build result path consistent with the training configuration"""
     eval_results_root = "".join((
         f"{args.result_root}/", 
         f"base_model_{args.base_model}-epochs_{args.epochs}-batch_size_{args.batch_size}-lr_{args.lr}-topk_{args.topk}-auxk_{args.auxk}-",
@@ -153,7 +153,7 @@ def build_result_path():
     return eval_results_root
 
 def find_and_summarize_results():
-    """查找并总结评估结果"""
+    """Locate and summarize evaluation results"""
     eval_results_path = build_result_path()
     results_file = os.path.join(eval_results_path, "evaluation_results.json")
     
@@ -199,5 +199,5 @@ def find_and_summarize_results():
             import traceback
             print(f"[Error] Traceback: {traceback.format_exc()}")
 
-# 执行主要逻辑
+# Run main logic
 find_and_summarize_results()
