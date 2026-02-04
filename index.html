@@ -1,0 +1,593 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<script type="text/javascript" charset="utf-8" src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style type="text/css">
+body {
+    font-family: "Titillium Web", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 300;
+    font-size: 17px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media screen and (min-width: 980px){
+    body {
+        width: 980px;
+    }
+}
+
+h1 {
+    font-weight:300;
+    line-height: 1.15em;
+}
+
+h2 {
+    font-size: 1.75em;
+}
+a:link,a:visited {
+    color: #0E710E;
+    text-decoration: none;
+}
+a:hover {
+    color: #208799;
+}
+h1 {
+    text-align: center;
+}
+h2,h3 {
+    text-align: left;
+}
+
+h1 {
+    font-size: 40px;
+    font-weight: 500;
+}
+h2 {
+    font-weight: 400;
+    margin: 16px 0px 4px 0px;
+}
+h3 {
+    font-weight: 600;
+    margin: 16px 0px 4px 0px;
+}
+
+.paper-title {
+    padding: 1px 0px 1px 0px;
+}
+section {
+    margin: 32px 0px 32px 0px;
+    text-align: justify;
+    clear: both;
+}
+.col-5 {
+     width: 20%;
+     float: left;
+}
+.col-4 {
+     width: 25%;
+     float: left;
+}
+.col-3 {
+     width: 33%;
+     float: left;
+}
+.col-2 {
+     width: 50%;
+     float: left;
+}
+.col-1 {
+     width: 100%;
+     float: left;
+}
+
+.author-row, .affil-row {
+    font-size: 26px;
+}
+
+.author-row-new {
+    text-align: center;
+}
+
+.author-row-new a {
+    display: inline-block;
+    font-size: 20px;
+    padding: 4px;
+}
+
+.author-row-new sup {
+    color: #313436;
+    font-size: 12px;
+}
+
+.affiliations-new {
+    font-size: 18px;
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.row {
+    margin: 16px 0px 16px 0px;
+}
+.authors {
+    font-size: 26px;
+}
+.affiliatons {
+    font-size: 18px;
+}
+.affil-row {
+    margin-top: 18px;
+}
+.teaser {
+    max-width: 100%;
+}
+.text-center {
+    text-align: center;  
+}
+.screenshot {
+    width: 256px;
+    border: 1px solid #ddd;
+}
+.screenshot-el {
+    margin-bottom: 16px;
+}
+hr {
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 0;
+}
+.material-icons {
+    vertical-align: -6px;
+}
+p {
+    line-height: 1.25em;
+}
+.caption {
+    font-size: 16px;
+    color: #666;
+    margin-top: 4px;
+    margin-bottom: 10px;
+}
+video {
+    display: block;
+    margin: auto;
+}
+figure {
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#bibtex pre {
+    font-size: 14px;
+    background-color: #eee;
+    padding: 16px;
+}
+.green {
+    color: #0E710E;
+    font-weight: bold;
+}
+.orange {
+    color: #d35400;
+    font-weight: bold;
+}
+.flex-row {
+    display: flex;
+    flex-flow: row wrap;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.coming-soon {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+}
+
+.paper-btn:hover {
+    color: #FF8563;
+    transform: translateY(-2px);
+}
+
+.paper-btn-parent {
+    display: flex;
+    justify-content: center;
+    margin: 16px 0px;
+    gap: 25px;
+    font-size: 20px;
+}
+
+.github-btn:hover {
+    color: #FF8563;
+    transform: translateY(-2px);
+}
+
+.data-btn:hover {
+    color: #FF8563;
+    transform: translateY(-2px);
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.venue {
+    font-size: 23px;
+}
+
+.topnav {
+    background-color: #EEEEEE;
+    overflow: hidden;
+}
+
+.topnav div {
+    max-width: 1070px;
+    margin: 0 auto;
+}
+
+.topnav a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    vertical-align: middle;
+    padding: 16px 16px;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.topnav img {
+    padding: 2px 0px;
+    width: 100%;
+    margin: 0.2em 0px 0.3em 0px;
+    vertical-align: middle;
+}
+
+pre {
+    font-size: 0.9em;
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-radius: 3px;
+    background-color: rgb(235, 235, 235);
+    overflow-x: auto;
+}
+
+.download-thumb {
+    display: flex;
+}
+
+@media only screen and (max-width: 620px) {
+    .download-thumb {
+        display: none;
+    }
+}
+
+.paper-stuff {
+    width: 50%;
+    font-size: 20px;
+}
+
+@media only screen and (max-width: 620px) {
+    .paper-stuff {
+        width: 100%;
+    }
+}
+* {
+  box-sizing: border-box;
+}
+
+.column {
+  text-align: center;
+  float: left;
+  width: 16.666%;
+  padding: 5px;
+}
+.column3 {
+  text-align: center;
+  float: left;
+  width: 33.333%;
+  padding: 5px;
+}
+.border-right {
+    border-right: 1px solid black;
+}
+.border-bottom{
+    border-bottom: 1px solid black;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: 10px;
+    width: 100%; 
+}
+
+.image-grid img {
+    width: 100%; 
+}
+
+.image-grid img:first-child {
+    object-fit: contain;
+}
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 500px) {
+  .column {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .column3 {
+    width: 100%;
+  }
+}
+
+.figure img {
+    width: 100%; 
+}
+
+.image-grid-three {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    width: 90%;
+    justify-items: center;
+    margin: 0 auto;
+}
+
+.image-grid-three img {
+    width: 100%; 
+}
+
+.image-grid-tab {
+    text-align: center;
+    justify-content: center;
+    display: grid;
+    place-items: center;
+    grid-template-columns: 1fr 1.22fr;
+    gap: 10px;
+    width: 90%;
+    justify-items: center;
+    margin: 0 auto;
+}
+
+.image-grid-tab img {
+    width: 100%; 
+}
+
+blockquote {
+    background-color: rgba(40, 40, 40, 0.1);
+    padding: 5px 30px; /* 增加一点内边距，让文字不显得拥挤 */
+    margin: 20px auto;  /* 关键：auto 让整个框在水平方向居中 */
+    border-radius: 10px;
+    width: fit-content; /* 关键：让框的宽度自适应文字长度 */
+    max-width: 80%;     /* 限制最大宽度，防止在小屏幕上撑破 */
+}
+
+</style>
+
+<script type="text/javascript" src="../js/hidebib.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,600,400italic,600italic,300,300italic' rel='stylesheet' type='text/css'>
+    <head>
+        <title>CSRv2: Unlocking Ultra-sparse Embeddings</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta property="og:description" content="CSRv2: Unlocking Ultra-sparse Embeddings"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link href="https://fonts.googleapis.com/css2?family=FontAwesome" rel="stylesheet">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:creator" content="@Lixuan_Guo">
+        <meta name="twitter:title" content="CSRv2: Unlocking Ultra-sparse Embeddings">
+    </head>
+
+ <body>
+<div class="container">
+    <div class="paper-title">
+    <h1>
+        <font color="#0E710E">CSRv2</font>: Unlocking Ultra-sparse Embeddings
+    </h1>
+    </div>
+
+    <div id="authors">
+        <center>
+            <div class="author-row-new">
+                <a href="https://veritas2024.github.io/">Lixuan Guo<sup>1,2*</sup></a>,
+                <a href="https://yifeiwang77.com/">Yifei Wang<sup>3*</sup></a>,
+                <a href="https://neilwen987.github.io/">Tiansheng Wen<sup>1,2*</sup></a>,
+                <a href="https://zc0in.github.io/">Yifan Wang<sup>1</sup></a>,
+                <a href="https://asfeng.github.io/">Aosong Feng<sup>4</sup></a>,
+                <br>
+                <a href="https://web.xidian.edu.cn/bchen/en/index.html">Bo Chen<sup>2</sup></a>,
+                <a href="https://people.csail.mit.edu/stefje/">Stefanie Jegelka<sup>3,5</sup></a>,
+                <a href="https://chenyuyou.me/">Chenyu You<sup>1</sup></a>
+            </div>
+        </center>
+        <center>
+        <div class="affiliations">
+            <span><sup>1</sup>Stony Brook University</span>&nbsp;&nbsp;&nbsp;
+            <span><sup>2</sup>Xidian University</span>&nbsp;&nbsp;&nbsp;
+            <span><sup>3</sup>MIT</span>&nbsp;&nbsp;&nbsp;
+            <span><sup>4</sup>Yale University</span>&nbsp;&nbsp;&nbsp;
+            <span><sup>5</sup>TUM</span> <br/>
+        </div>
+        <div class="affiliations">
+            <span><sup>*</sup>Equal Contribution.</span>&nbsp;&nbsp;&nbsp;
+        </div>
+            <div class="affil-row">
+            <div class="venue text-center"><b>ICLR 2026</b></div>
+        </div>
+
+        </center>
+
+        <div style="clear: both">
+            <div class="paper-btn-parent">
+                <a class="paper-btn" href="https://openreview.net/pdf?id=CTpQW4yMUL">
+                    <span class="fas fa-file-alt"></span> 
+                    Paper
+                </a>   
+                <a class="github-btn" href="https://github.com/Y-Research-SBU/CSRv2">
+                    <span class="fab fa-github"></span> 
+                    Code
+                </a> 
+                <a class="data-btn" href="https://huggingface.co/Y-Research-Group">
+                    <span class="fas fa-database"></span>
+                    Model & Data
+                </a>          
+           </div>
+        </div>
+        <div class="figure" style="width: 60%; margin: 0 auto;">
+            <img src="assets/compareMRL.svg" alt="PDF Image">
+        </div>
+    </div>
+    <section id="news">
+        <h2>News</h2>
+        <hr>
+        <div class="row">
+            <div><span class="material-icons"> event </span> [Feb 2026] Our project page is released.</div>
+            <div><span class="material-icons"> event </span> [Jan 2026] Our paper is accepted to ICLR 2026.</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Overview</h2>
+        <hr>
+        <p>
+            In the era of large foundation models, the quality of embeddings is a central determinant of downstream performance, yet 
+            widely used dense embeddings incur substantial costs in storage and latency. Recent works have proposed 
+            <a href="https://arxiv.org/abs/2503.01776">Contrastive Sparse Representation (CSR)</a> to address this; 
+            the idea is to map dense embeddings into high-dimensional but sparse vectors to improve efficiency.
+        </p>    
+
+        <p>
+            However, we find that CSR suffers severe degradation in the ultra-sparse regime (k = 2 or 4). We refer to this regime as 
+            <b style="color: #0E710E;">ultra-sparse embeddings</b>, which in principle can deliver over 100× efficiency gains in large-scale retrieval. However, existing
+            methods incur 20 – 40% accuracy losses in this regime, rendering such embeddings impractical in real-world scenarios. This raises a central question:
+        </p>
+        <p>
+            <blockquote>    
+                <p style="text-align: center;">
+                Are ultra-sparse embeddings inherently constrained, or can proper training mitigate this?
+                </p>
+            </blockquote>    
+        </p>
+        <p>
+            Specifically, we introduce <b style="color: #0E710E;">CSRv2</b>, a principled training approach designed to make ultra-sparse embeddings viable. 
+            In essence, CSRv2 stabilizes sparsity learning through <b>progressive k-annealing</b> and enhances representational quality 
+            via <b>supervised contrastive objectives</b>. This approach ensures that the limited active dimensions capture the most 
+            discriminative semantic features, effectively reducing dead neurons from >80% to ~20%.
+        </p>
+        <div class="figure" style="width: 50%; margin: 0 auto;">
+            <img src="assets/e5_task_type_All.svg" alt="PDF Image">
+        </div>
+        <p>
+            Notably, our method makes extreme sparsity practical without compromising performance, delivering a 14% accuracy gain 
+            at k=2 compared to prior methods. In terms of efficiency, CSRv2 yields up to 300x improvements in compute and memory 
+            efficiency relative to dense embeddings and achieves a 7x speedup over 
+            <a href="https://arxiv.org/abs/2205.13147">Matryoshka Representation Learning (MRL)</a>.
+        </p>
+    </section>
+
+    <section>
+        <h2>Results</h2>
+        <hr>
+        <h3>CSRv2 improves both text and visual embedding quality on state-of-the-art backbones.</h3>
+        <p>
+        We evaluate CSRv2 across comprehensive benchmarks for both text and vision. 
+        <br><br>
+        <strong>Text Embedding:</strong> On the MTEB benchmark, CSRv2 achieves a <strong>14% accuracy gain</strong> over the 
+        original CSR at k=2. Notably, CSRv2 with only 2 active dimensions matches the performance of 
+        <a href="https://arxiv.org/abs/2205.13147">Matryoshka Representation Learning (MRL)</a> 
+        at 16 dimensions, offering comparable quality with significantly higher compression.
+        <br><br>
+        <strong>Visual Embedding:</strong> On ImageNet-1k, CSRv2 demonstrates superior robustness, achieving a 
+        20% improvement in 1-NN accuracy over MRL and a 6% improvement over CSR in the ultra-sparse regime (k=2).
+        </p>
+        <div class="figure" style="width: 90%; margin: 0 auto;">
+            <img src="assets/e5_performance.png" alt="PDF Image">
+            <p class="caption" style="text-align: center;"> Performance on six text embedding tasks in
+                <a href="https://huggingface.co/mteb">MTEB</a> with 
+                <a href="https://huggingface.co/intfloat/e5-mistral-7b-instruct">e5-Mistral-7b-instruct</a> as backbone.</p>
+        </div>   
+        <div class="figure" style="width: 90%; margin: 0 auto;">
+            <img src="assets/qwen_performance.png" alt="PDF Image">
+            <p class="caption" style="text-align: center;"> Performance on six text embedding tasks in 
+                <a href="https://huggingface.co/mteb">MTEB</a> with 
+                <a href="https://huggingface.co/Qwen/Qwen3-Embedding-4B">Qwen3-Embedding-4B</a> as backbone.</p>
+        </div> 
+        <div class="figure" style="width: 50%; margin: 0 auto;">
+            <img src="assets/visual_performance.svg" alt="PDF Image">
+            <p class="caption" style="text-align: center;"> Performance on ImageNet with 
+                <a href="https://huggingface.co/aniketr/mrl-resnet50/tree/main/fixed-feature/Imagenet1k_R50_ff2048">FF2048</a> 
+                as backbone.</p>
+        </div> 
+        <h3>CSRv2 is computationally efficient.</h3>
+        <p>
+            CSRv2 translates extreme sparsity into tangible computational efficiency. 
+            By utilizing sparse matrix operations native to modern hardware (e.g., Sparse Tensor Cores), 
+            CSRv2 delivers up to a 300x speedup in retrieval latency compared to full dense embeddings on a 1M-scale database. 
+            Even when compared to MRL's truncated dense embeddings of comparable accuracy, CSRv2 maintains a 7x speed advantage, 
+            making it a premier choice for large-scale, real-time, and edge-deployable search systems.
+        </p>
+        <div class="figure" style="width: 50%; margin: 0 auto;">
+            <img src="assets/retrieval_efficiency.svg" alt="PDF Image">
+            <p class="caption" style="text-align: center;"> Efficiency analysis on 1M database size </p> 
+        </div> 
+
+
+
+        <h3>CSRv2 ensures robust zero-shot generalization in GraphRAG systems.</h3>
+        <p>
+            Beyond standard retrieval, we evaluate CSRv2 on complex, knowledge-intensive tasks using the 
+            <a href="https://arxiv.org/abs/2506.02404">GraphRAG-Bench</a>. 
+            In a zero-shot setting (no training on the target data), CSRv2 demonstrates superior generalization compared to 
+            MRL truncation. In the medical domain, CSRv2 achieves over 15% improvement in retrieval relevance and 10% improvement 
+            in generation accuracy compared to MRL, proving that ultra-sparse embeddings can retain the rich semantic nuances 
+            required for advanced RAG applications.
+        </p>
+
+        <div class="figure" style="width: 90%; margin: 0 auto;">
+            <img src="assets/RAG_retrieval_evaluation.png" alt="PDF Image">
+            <p class="caption" style="text-align: center;"> Retrieval evaluation on 
+                <a href="https://arxiv.org/abs/2506.02404">GraphRAG-Bench</a> with 
+                <a href="https://huggingface.co/Qwen/Qwen3-Embedding-4B">Qwen3-Embedding-4B</a> as backbone.
+            </p>
+        </div>
+        <div class="figure" style="width: 90%; margin: 0 auto;">
+            <img src="assets/RAG_generation_evaluation.png" alt="PDF Image">
+            <p class="caption" style="text-align: center;"> Generation evaluation on 
+                <a href="https://arxiv.org/abs/2506.02404">GraphRAG-Bench</a> with 
+                <a href="https://huggingface.co/Qwen/Qwen3-Embedding-4B">Qwen3-Embedding-4B</a> as backbone.
+            </p>
+        </div> 
+    </section>
+
+    <section id="bibtex">
+        <h2>Citation</h2>
+        <hr>
+        <pre><code>@inproceedings{guo26csrv2,
+    title={{CSR}v2: Unlocking Ultra-sparse Embeddings},
+    author={Lixuan Guo and Yifei Wang and Tiansheng Wen and Yifan Wang and Aosong Feng and Bo Chen and Stefanie Jegelka and Chenyu You},
+    year={2026},
+    booktitle={International Conference on Learning Representations (ICLR)},
+}</code></pre>
+    </section>
+
+</div>
+</body>
+</html>
