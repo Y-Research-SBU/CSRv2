@@ -29,10 +29,10 @@
 
 <p>
   <a href="https://arxiv.org/abs/2602.05735">
-    <img src="https://img.shields.io/badge/💡%20Paper-arXiv-blue?style=flat-square&logo=arxiv&logoColor=white" alt="Paper">
+    <img src="https://img.shields.io/badge/ArXiv-2602.05735-B31B1B?style=flat-square&logo=arxiv" alt="Paper">
   </a>
   <a href="https://y-research-sbu.github.io/CSRv2/">
-    <img src="https://img.shields.io/badge/🏠%20Project-Page-orange?style=flat-square&logo=github-pages&logoColor=white" alt="Project Page">
+    <img src="https://img.shields.io/badge/Project-Website-blue?style=flat-square&logo=googlechrome" alt="Project Website">
   </a>
   <a href="https://huggingface.co/Y-Research-Group">
     <img src="https://img.shields.io/badge/Hugging%20Face-Model-yellow?style=flat-square&logo=huggingface" alt="Hugging Face Model">
