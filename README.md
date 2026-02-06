@@ -27,6 +27,18 @@
 <sup>5</sup>Technical University of Munich
 </p>
 
+<p>
+  <a href="https://arxiv.org/abs/2602.05735">
+    <img src="https://img.shields.io/badge/💡%20Paper-arXiv-blue?style=flat-square&logo=arxiv&logoColor=white" alt="Paper">
+  </a>
+  <a href="https://y-research-sbu.github.io/CSRv2/">
+    <img src="https://img.shields.io/badge/🏠%20Project-Page-orange?style=flat-square&logo=github-pages&logoColor=white" alt="Project Page">
+  </a>
+  <a href="https://huggingface.co/Y-Research-Group">
+    <img src="https://img.shields.io/badge/Hugging%20Face-Model-yellow?style=flat-square&logo=huggingface" alt="Hugging Face Model">
+  </a>
+</p>
+
 <img src="./assets/overview.jpg" width="600" style="border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.15);">
 
 <br>
@@ -40,6 +52,7 @@ This is the <b>official repository</b> for <b>CSRv2</b>. For implementation deta
 </div>
 
 ## &#x1F680; &#x1F680; News
+- 2026.01 Our paper is accepted at ICLR26!
 - 2025.10 Code released! Let's explore ultra sparsity together!
 
 In this repo, we will release (**updating**):
