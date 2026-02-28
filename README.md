@@ -13,18 +13,19 @@
 <a href="https://yifeiwang77.com/" target="_blank"><b>Yifei Wang</b></a><sup>*3</sup>,
 <a href="https://neilwen987.github.io/" target="_blank"><b>Tiansheng Wen</b></a><sup>*1,2</sup>,
 <a href="https://yfwang.me/" target="_blank"><b>Yifan Wang</b></a><sup>1</sup>,
-<a href="https://scholar.google.com/citations?user=hFhhrmgAAAAJ&hl=en"><b>Aosong Feng</b></a><sup>4</sup>,</br>
+<a href="https://scholar.google.com/citations?user=hFhhrmgAAAAJ&hl=en"><b>Aosong Feng</b></a><sup>6</sup>,</br>
 <a href="https://web.xidian.edu.cn/bchen/en/index.html" target="_blank"><b>Bo Chen</b></a><sup>2</sup>,
-<a href="https://people.csail.mit.edu/stefje/" target="_blank"><b>Stefanie Jegelka</b></a><sup>3,5</sup>,
+<a href="https://people.csail.mit.edu/stefje/" target="_blank"><b>Stefanie Jegelka</b></a><sup>4,5</sup>,
 <a href="https://chenyuyou.me/" target="_blank"><b>Chenyu You</b></a><sup>1</sup>
 </p>
 
 <p style="font-size: 14px; color: #555; margin-top: 8px;">
 <sup>1</sup>Stony Brook University &emsp; 
 <sup>2</sup>Xidian University &emsp;
-<sup>3</sup>MIT CSAIL &emsp;
-<sup>4</sup>Yale University &emsp;
-<sup>5</sup>Technical University of Munich
+<sup>3</sup> Amazon AGI SF Lab &emsp;
+<sup>4</sup>Technical University of Munich
+<sup>5</sup>MIT &emsp;
+<sup>6</sup>Yale University &emsp;
 </p>
 
 <p>
@@ -45,7 +46,7 @@
 <br>
 
 <p style="font-size: 15px; color: #444;">
-This is the <b>official repository</b> for <b>CSRv2</b>. For implementation details and updates, please also visit  
+This is the <b>official repository</b> for <b>CSRv2</b>. For more details, please also visit  
 <a href="https://github.com/Veritas2024/CSRv2" target="_blank">Lixuan Guo’s GitHub Repository</a>.
 </p>
 
