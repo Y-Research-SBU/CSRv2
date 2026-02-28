@@ -22,10 +22,11 @@
 <p style="font-size: 14px; color: #555; margin-top: 8px;">
 <sup>1</sup>Stony Brook University &emsp; 
 <sup>2</sup>Xidian University &emsp;
-<sup>3</sup> Amazon AGI SF Lab &emsp;
-<sup>4</sup>Technical University of Munich
+<sup>3</sup>Amazon AGI SF Lab &emsp; 
+<br>
+<sup>4</sup>Technical University of Munich &emsp;
 <sup>5</sup>MIT &emsp;
-<sup>6</sup>Yale University &emsp;
+<sup>6</sup>Yale University
 </p>
 
 <p>
